@@ -1,0 +1,4 @@
+Must be in copy mode (C-b [)
+
+? -> Search Backwards
+/ -> Search Forward

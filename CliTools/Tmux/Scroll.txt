@@ -1,0 +1,17 @@
+To Scroll 
+---------
+
+Method1
+-------
+  C-b-[   to copy mode 
+  then use UpArrow, DownArrow, PageDown,PageDown etc..
+
+  Use Shift-J, Shift-K to Scroll.
+
+Method2
+-------
+  Add line 
+  set-option -g mode-mouse on
+  into tmux conf. this enables mouse based scroll.
+
+

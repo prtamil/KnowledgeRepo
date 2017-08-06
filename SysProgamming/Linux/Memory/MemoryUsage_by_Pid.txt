@@ -1,0 +1,174 @@
+   
+Measure Memory of Programs Running
+===================================
+I assume you want to know how online judges determine 'Memory Limit Exceeded' for a user-supplied program.
+
+First you may want to read the general architecture of online judges at
+TopCoder: How do online judges identify Time Limit Exceeded?
+where the functioning of online judges has been explained in a very basic way and how they determine TLE - Time Limit Exceeded for a program.
+
+Here again the the resource limits come to rescue. But the more useful thing that stand by our side is proc - a file system that contains process information.
+
+proc is the key to determining memory usage by a program. It is an interface to kernel data structures and is usually mounted at /proc in a UNIX-based machine. See `man proc` for more detail.
+
+For almost every process running in the system, there is a directory created in /proc/. The directory name is the process id and it contains several useful files which convey important information. The two main files of concern here are:
+
+/proc/[pid]/status: This file has crucial information regarding memory usage such as virtual memory size (VmSize), size of data segment (VmData), stack size (VmStk), and size of text segment (VmExe). These sizes are in KB i.e. KiloBytes which is what often required for the online judge to determinte the memory usage. (data segment is actually data+bss+heap - which is often confusing!)
+
+/proc/[pid]/statm: This files also contains information about memory usage. The files has a single row of information where values are placed separated by space. These values are total program size, resident set size, size of shared pages, size of text segment, size of lib code, size of data segment + stack, and  dirty pages.
+
+The caveat is that this size information in /proc/[pid]/statm is in terms of number of pages. But you can easily get the size in KB by multiplying the number of pages by 4, assuming in your machine 1 page equals to 4KBs which is usually the case and that is the value at least in my machine. (I really don't know how it varies across different machines or OS!)
+
+
+Now with all this information, the question comes which values (data or stack or text or combination of some of them) to consider for determining the memory usage of a process. Before continuing let's have a look at the address space of a program:
+
+
+
+Going through C (programming language): What is the stack and heap memory architecture used by C? should provide a better understanding of the address space.
+
+Now the memory we are interested in computing is the sum total of size of data, bss, heap and stack. VmData in /proc/[pid]/status is the size of data+bss+heap, and VmStk is the size of stack - both values in Kilo Bytes. Simply adding VmData nd VmStk gives us the memory usage of the process.
+
+VmData is sometimes inaccurate as the heap size is inaccurate. Sometimes the kernel allocates more memory than asked for optimization and the remaining memory is used when demanded later. But AFAIK they happen when large amount of dynamic memory is allocated by the process via syscalls suck as brk(). Also sometimes the heap memory is not used and an anonymous memory mapping is created for large block of memory requested via malloc().
+
+
+Below is a piece of code that shows how to do this. It just contains the portion of interest and you may have to add/modify many parts to suit your need.
+
+	
+
+int main() {
+
+    struct sigaction sigact;
+    sigact.sa_flags = SA_NOCLDSTOP | SA_NOCLDWAIT;
+
+    // define your own signal_handler
+    sigact.sa_handler = signal_handler;
+
+    if (sigaction(SIGALRM, &sigact, NULL) == -1) {
+
+        return -1;
+
+    } else if (sigaction(SIGXCPU, &sigact, NULL) == -1) {
+
+        return -1;
+
+    }
+
+    int pid;
+
+    if ((pid = fork()) == -1) {
+
+        perror("fork");
+
+        exit(EXIT_FAILURE);
+
+    } else if (pid == 0) {    /* child */
+
+
+        /* set resource limit values such as RLIMIT_CPU, 
+
+         * RLIMIT_STACK, RLIMIT_RSS, etc.
+
+         * See `man setrlimit`.
+
+         */
+
+
+        // exec user program
+
+
+    }  else {            /* parent */
+
+
+        struct rusage resource_usage;
+
+        // set arbitrary lower limit value of memory used
+
+        int memory_used = 128;
+
+        pid_t pid2;
+
+
+        do {
+
+            memory_used = max(memory_used, get_memory_usage(pid));
+
+            if ((memory_used > memory_limit)
+
+                kill(pid, SIGKILL);
+
+
+           // wait for the child process to change state
+
+            pid2 = wait4(pid, &status, WUNTRACED | WCONTINUED, &resource_usage);
+
+        } while (pid2 == 0);
+
+
+}
+
+
+
+
+It is worthwhile to note here that the resource limits are preserved across execve. So the user-supplied program exec'ed in the child process inherits the resource limits. Setting RLIMIT_STACK and RLIMIT_RSS to appropriate values also help in limiting the memory usage of a process.
+
+The only function in above code which needs to be implemented is get_memory_usage().
+	
+
+int get_memory_usage(pid_t pid) {
+
+    int fd, data, stack;
+
+    char buf[4096], status_child[NAME_MAX];
+
+    char *vm;
+
+
+    sprintf(status_child, "/proc/%d/status", pid);
+
+    if ((fd = open(status_child, O_RDONLY)) < 0)
+
+        return -1;
+
+
+    read(fd, buf, 4095);
+
+    buf[4095] = '\0';
+
+    close(fd);
+
+
+    data = stack = 0;
+
+
+    vm = strstr(buf, "VmData:");
+
+    if (vm) {
+
+        sscanf(vm, "%*s %d", &data);
+
+    }
+
+    vm = strstr(buf, "VmStk:");
+
+    if (vm) {
+
+        sscanf(vm, "%*s %d", &stack);
+
+    }
+
+
+    return data + stack;    
+
+}
+
+
+
+This implementation of get_memory_usage() has used /proc/[pid]/status. You can also read from /proc/[pid]/statm, and multiply the penultimate value (number of pages in data+bss+heap+stack) by the page size.
+
+There may be more accurate ways than this for measuring memory usage and I would love to know about them.
+ 
+A few worthy points can be noted here:
+
+    VmRSS in /proc/[pid]/statm is a useful data. It shows how much memory in RAM is occupied by the process. The rest extra memory has either been not used or has been swapped out.
+    VmSize is how much virtual memory the process has in total. This includes all types of memory, both in RAM and swapped out. These numbers can get skewed because they also include shared libraries.
+    We can determine the memory used by stack and heap from /proc/[pid]/smaps. Searching for the keywords `heap` and `stack` returns two lines of information - the first value in each line is the range of addresses in heap and stack respectively. This address is in hexadecimal. So to calculate the size we can simply subtract the higher value to lower value, convert the result to decimal form and divide by 4*1024 to get the size in Kilo Bytes.

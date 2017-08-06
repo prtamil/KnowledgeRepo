@@ -1,0 +1,5 @@
+examples;
+--------
+ls -al| awk 'BEGIN{sum = 0;} {if (NR>1){ sum = sum + $2;}} END {prin
+t sum;}'
+

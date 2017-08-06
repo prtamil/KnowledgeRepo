@@ -1,0 +1,2 @@
+head
+  -n (number)   -> -n 10 Diplay 10 lines

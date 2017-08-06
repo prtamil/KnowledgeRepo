@@ -1,0 +1,76 @@
+How long is the array
+---------------------
+
+int arr[]= {1,1,12,3,4,5,6,7,8};
+
+normal way
+----------
+ int size = sizeof(arr)/sizeof(arr[0]);
+
+ sizeof(arr)    -> Tells how many bytes array contains
+ sizeof(arr[0]) -> Tells how many bytes each elements contains
+
+ sizeof(arr)  = arrlen * sizeof(arr[0]);
+ so arrlen    = sizeof(arr)/sizeof(arr[0]);
+
+Pointer way
+-----------
+
+  int size = 1[&arr] - arr;
+  int size = (&arr)[1] - arr;
+  int size = *(&arr+1) - arr
+
+  all are valid.
+
+ example usage:
+ --------------
+ for(int i = 0; i < 1[&arr]-arr; i++) printf("%d\n",arr[i]);
+ for(int *p = arr; p < 1[&arr]; p++) printf("%d\n", *p);
+
+ Description
+ -----------
+ 1. Whats difference between arr, &arr
+
+     + arr  -> (int *)         ->  pointer to element -> ptr to first el
+     + &arr -> (int (*)[size]) ->  pointer to array   ->  ptr to array
+
+     at first both points to same address.
+     but they are not same
+
+ 2. what does (&arr+1)  mean
+     + since (&arr) means pointer to array
+       (&arr+1)  => got to beyond end of array
+                 => for ex array size 5 then (&arr+1) goes to 6th element
+
+        arr+1    => go to next element in array
+	               => if arr is 0th el arr+1 points to first el
+
+
+ 3.  How does it calculates its size
+
+      *(&arr+1)  => gives address after the end of array
+      arr        => gives address first element of array
+
+      diff between these two calculates its size
+ 
+ 4. What does *(&arr+1) means 
+     
+      &arr+1  -> points to address after end of array
+              -> But its type is array of pointer
+              -> so by dereferecning it , it becomes pointer of element.
+              -> *(&arr+1) means address of int* of 6th element if array length is 5
+
+      
+      &arr, arr     -> both are same address , but different type
+      arr = *(&arr) -> both are same address and same type 
+     
+		  *(&arr+1)  ->converts 6th element address to int * type     
+
+     
+
+This will not work for pointers
+
+char* p = "string";
+cannot be calculated.
+
+this size fo length can be calculated only for array

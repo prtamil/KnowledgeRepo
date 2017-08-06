@@ -1,0 +1,7 @@
+ls
+  -t  -> List files in order of last mod date
+         Newer first.
+  -r  -> reverse the list 
+  -X  -> Group files by extension
+  -v  -> Naturally sort version numbers in filenames
+  -R  -> List recurdively

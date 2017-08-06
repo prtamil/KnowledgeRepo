@@ -1,0 +1,8 @@
+grep 
+   -v   -> Negate Search
+
+
+
+Example
+-------
+   grep -v '[^A-Za-z]'   -> Prints only alphabets only word.

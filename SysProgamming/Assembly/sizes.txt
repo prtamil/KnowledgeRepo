@@ -1,0 +1,6 @@
+byte  -> 8bits
+Word  -> 16 bits
+Dword -> 32 bits Intel
+Long  -> 32 bits AT&T
+Qword -> 64 bits Intel
+quad  -> 64 bits AT&T

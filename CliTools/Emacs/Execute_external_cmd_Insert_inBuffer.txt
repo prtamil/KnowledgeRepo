@@ -1,0 +1,1 @@
+M-- M-!   -> Execute cmd and inserts result in current line

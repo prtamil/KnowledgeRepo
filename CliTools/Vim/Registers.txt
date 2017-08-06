@@ -1,0 +1,100 @@
+"a2yy    -> yank 2 lines and copy to a register
+
+"ap       -> Paste a register contents
+
+
+View Registerd Content
+----------------------
+    :registers    -> Will display all registers contents.
+
+So there are 9 type of registers
+
+Unnamed Register
+---------------
+   Internal register which used internally for dd etc..
+   to dereference it 
+     use " twice like:  ""p 
+   
+Black Hole Register
+------------------
+    "_   -> Anything written to it willbe discarded.
+         -> like writing to /dev/null
+  
+Small delete Register
+--------------------
+    "-    -> (note not underscore,its dash)
+          -> Stores deleted and changed text within Line
+          -> eg: 
+               if deleted 3x you can use it like "-p
+          -> Only changes within line
+
+            
+
+Number Register
+--------------
+   + They are readonly registers
+   + 0 - 9 are historical registers
+   + 0 -> Most recently yanked Text
+       -> But never deleted Text
+   + 1-9 -> Deleted Text
+         -> 1 recently deleted
+
+named Letter Register
+-----------------------
+   a-z    -> lower case letters.
+          -> replace their previous stored results.
+          
+   A-Z    -> Upper case letters
+          -> Append to their previous stored results.
+          
+Readonly Register
+-----------------
+ "%       -> Read only register
+          -> Contains name of current buffers name.
+ 
+ "#        -> name of alternate buffers file       
+
+ ".        -> Last inserted Text
+
+ ":        -> Contains most recently executed command-line
+
+Expression Register
+-------------------
+ "=       -> it will go to cmd mode
+   2+2    -> Then type math expressions
+   Enter  -> Then type enter keyword
+   p      -> Pastes the result of expression into current cursor.   
+
+C-R =     -> Cmdline expression
+
+Last search pattern register
+------------------------------
+"/       -> Contains most recent search pattern
+C-R /    ->  in cmd mode
+
+Selection and drop register
+-------------------------
+"* 
+"+  
+"~ 
+    Use these registers for storing and retreiving the
+    Selected text for the GUI
+
+"* "+  -> In windows they are same
+       
+in X11
+-------
+   * selections
+      -> owned by application and dissapper when app exits
+"*    -> selected using middle mouse button
+      
+   * cut-buffers
+      -> owned by x and remains even after app closes.
+ "+   -> Contains till logging out.
+      -> use it as clippboard
+      -> selected using copy to clipboard.
+
+ "~  -> used for drag and droped items
+
+
+

@@ -1,0 +1,14 @@
+use 'u' for undo
+
+:changes   -> display changes made
+:undolist  -> displays lists of undo
+:undo num  -> specify number from list makes redo possible
+
+Ctrl+R   -> Redo
+
+:earlier  -> previous
+:later    -> later
+
+:earlier 10s  -> goto 10s earlier
+:later 10s    -> goto 10s after 
+                 (most probably later should use after earlier which will make sense)

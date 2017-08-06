@@ -1,0 +1,61 @@
+String Stream Tips
+==================
+
+Extract using >>
+_________________
+
+stringstream ss("23,24,25,26");
+int i, char cma;
+
+while(ss>>i>>cma){
+  //use i
+  //thus works only 23,24,25
+}
+//use the last i, 26
+
+
+Extract using getline function
+______________________________
+
+stringstream ss("24,25,26,27");
+string temps;
+
+while(getline(ss,temps,',')) //, ignore character
+{
+  int i = atoi(temps.c_str());
+}
+
+
+Extract using Iterators
+_______________________
+
+stringstream ss("23 24 25 26 27");
+vector<int> vi((istream_iterator<int>(ss)),
+               istream_iterator<int>());
+
+
+Counting Words using StringStreams
+_____________________________________
+
+//Counting words using this technique
+string str = "This is sparta";
+stringstream ss(str);
+int count = 0;
+string wrd;
+while(ss>>wrd)
+{
+  count++;
+}
+cout<<count<<"\n";
+
+Simple String Tokenizer Example
+_______________________________
+
+string str="11;12;13;14;15";
+stringstream ss(str);
+string token;
+while(getline(ss,token,';'))
+{
+  cout<<token<<endl;
+}
+

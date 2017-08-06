@@ -1,0 +1,7 @@
+> tshark -iusb0 -f"src port 53" -n -T fields -e dns.qry.name -e dns.resp.addr
+we can add further filters
+  -e frame.time
+  -e ip.src
+  -e ip.dst
+
+

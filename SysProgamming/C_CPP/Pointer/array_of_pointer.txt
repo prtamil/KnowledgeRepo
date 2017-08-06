@@ -1,0 +1,58 @@
+arr is an array:
+
+arr: int[6]
+[0|1|2|3|4|5]
+When used in an expression other than sizeof arr or &arr, an array decays to a pointer to the first element of the array:
+
+(arr+0): int *
+[*]
+ |
+ v
+[0|1|2|3|4|5]
+When an integral value is added to a pointer, you get a pointer to the address that is (sizeof (T)) * n bytes later in memory (where T is the type pointed to by the pointer, and n is the integral value added to the pointer):
+
+(arr+4): int *
+        [*]
+         |
+         v
+[0|1|2|3|4|5]
+When a pointer is dereferenced, you get the value that was pointed to:
+
+*(arr+4): int
+          4 /* specifically, the 4 in the fifth position in `arr` */
+[0|1|2|3|[4]|5]
+When the address is taken of an int, you get a pointer that points to that int:
+
+&*(arr+4): int *
+        [*] /* notice, this is the same as (arr+4) */
+         |
+         v
+[0|1|2|3|4|5]
+Array indexing is equivalent to pointer-addition followed by dereferencing:
+
+arr[4] == *(arr+4) /* see above for definition of *(arr+4) */
+So yes... &*(arr+4) and &arr[4] are equivalent.
+
+When the address of an array is taken, you get a pointer to an array:
+
+&arr: int (*)[6]
+[*] /* points to the array as a whole, not the first element of the array */
+ |
+ v
+ [0|1|2|3|4|5]
+When you increment that pointer, the same rules apply as above:
+
+                                    &arr + 4: int(*)[6]
+               /*points into some memory that*/    [*]
+               /* isn't part of the array... */     |
+               /*  undefined behaviour       */     v
+[0|1|2|3|4|5][x|x|x|x|x|x][x|x|x|x|x|x][x|x|x|x|x|x][x|x|x|x|x|x]
+Since this has undefined behaviour, you can't reason about it without reference to the underlying machine architecture and compiler implementation.
+
+If we imagine that it were well defined (as would be the case if arr were part of a larger array)... we can continue. Dereferencing a pointer to an array gives the array again:
+
+             /*the 5th array in this array of arrays*/ *(&arr+4): int[6]
+   [0|1|2|3|4|5][x|x|x|x|x|x][x|x|x|x|x|x][x|x|x|x|x|x][[x|x|x|x|x|x]]
+You would find that *(&arr+4) and (&arr+4) have the same address, since *(&arr+4) decays into a pointer to the first element of *(&arr+4), and an array starts at its first element, so a pointer to the start of an array and a pointer to the first element of an array would be identical.
+
+*(&arr+4) is different from &arr[4] since it refers to a completely different thing (see above).

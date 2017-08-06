@@ -1,0 +1,5 @@
+Link
+----
+
+ 1. ln -s source target
+ 2. remove link using rm

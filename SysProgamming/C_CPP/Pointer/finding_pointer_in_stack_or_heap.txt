@@ -1,0 +1,31 @@
+Disclaimer: This is compiler and architecture dependent; I would not recommend doing this.
+
+
+
+#include <unistd.h>
+
+
+boolean fromStack(void *ptr) {
+
+  return ptr > sbrk(0);
+
+}
+
+
+
+sbrk(0)
+
+returns the address of the top of the program's data segment. Typically, the heap is allocated upwards by expanding the program's data segment, and the stack lies above this, but this is not a requirement. Alternatively, you could try,
+
+
+boolean fromStack(void *ptr) {
+
+  int dummy;
+
+  return ptr > &dummy;
+
+}
+
+
+
+This works by allocating a variable in your stack frame and comparing the addresses. Typically the stack grows downward, so any other data on the stack should be above this, but again, this is not a requirement. This also wouldn't necessarily work in a multi-threaded environment where there can be multiple stacks.

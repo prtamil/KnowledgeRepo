@@ -1,0 +1,11 @@
+Copy
+----
+
+   "+10y   -> Yank 10 lines to clipboard
+
+Paste
+-----
+   "+p   -> Paste from Clipboard
+
+  + is register , and it denotes to system clipboard.
+

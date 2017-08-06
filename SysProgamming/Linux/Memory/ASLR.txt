@@ -1,0 +1,25 @@
+ASLR -> Address Space Layout Randomization
+     -> To prevent prediction of memory address for exploitation
+
+its defined in
+
+/proc/sys/kernel/randomize_va_space
+
+   Values are  0    -> No randomization and Everything Static
+               1    -> Conservative randomization , mmap,stack,VDSO(Virtual Dynamic Shared Object), and heap are randomized
+               2    -> Full Randomization of parts mention in 1 as well as memory managed thru brk() also randomized
+
+How do we set values
+--------------------
+echo 1 > sudo tee /proc/sys/kernel/randomiz_va_space 
+
+But this will be changed to default while reboot 
+inorder to survive reboot we need to add file 
+
+/etc/sysctl.d/01-disable-aslr.conf  -> contaiks
+
+kernel.randomize_va_space = 0
+
+should permenantly disable this
+
+

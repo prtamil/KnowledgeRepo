@@ -1,0 +1,13 @@
+use Edit Command
+----------------
+:edit 
+:edit!  (force update)
+:e      (Shortcut for Edit)
+:e!
+
+ConfigFile
+----------
+:set autoread  (can autoupdate)
+
+:checktime     (to monitor changes)
+:updatetime

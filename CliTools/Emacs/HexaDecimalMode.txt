@@ -1,0 +1,1 @@
+M-x hexl-mode  -> Hex Edior

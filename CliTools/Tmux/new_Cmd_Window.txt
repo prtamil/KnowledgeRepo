@@ -1,0 +1,9 @@
+Launch new window as  result of command.
+
+1. C-b-:     -> Enter to command mode
+2. new-window -n windowname "process"  -> runs process inside new windowname
+
+eg:
+    new-window -n Top "htop"
+   
+     

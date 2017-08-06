@@ -1,0 +1,4 @@
+Use Brackets-Beautify plugin
+(https://github.com/brackets-beautify/brackets-beautify/archive/master.zip
+ )
+Cmd-Shift-L => Macosx

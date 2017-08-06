@@ -1,0 +1,16 @@
+Just a quick clarification:
+-----------------------------
+
+The cosine of an angle gives the horizontal component of the vector
+The sine of an angle gives the vertical component of the vector.
+
+So:
+
+vector.x = cos(angle)
+vector.y = sin(angle) 
+
+
+Vector.fromAngle = function(angle, magnitude) {
+    return new Vector(magnitude* Math.cos(angle),
+                      magnitude* Math.sin(angle));
+}

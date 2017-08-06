@@ -1,0 +1,99 @@
+
+
+Each routine uses a portion of the stack, and we call it a stack frame.
+Although an assembler programmer is not forced to follow the following style, 
+it is highly recommended as good practice.
+
+The stack frame for each routine is divided into three parts: 
+  1. function parameters
+  2. back-pointer to the previous stack frame
+  3. local variables.
+
+Part 1: Function Parameters
+---------------------------
+This part of a routine's stack frame is set up by the caller. 
+Using the 'push' instruction, the caller pushes the parameters onto the stack.
+Different languages may push the parameters on in different orders.
+C, if I remember correctly, pushes them on right to left. That is, if you are calling ...
+
+foo (a, b, c);
+
+The caller will convert this to ...
+
+push c
+push b
+push a
+call foo
+
+As each item is pushed onto the stack, the stack grows down. 
+That is, the stack-pointer register is decremented by four (4) bytes (in 32-bit mode),
+and the item is copied to the memory location pointed to by the stack-pointer register. 
+Note that the 'call' instruction will implicitly push the return address on the stack. 
+Cleanup of the parameters will be addressed in Part 5.
+
+Part 2: Stackframe back pointer
+-------------------------------
+At this point in time, the 'call' instruction has been issued and we are now at the start of the called routine.
+If we want to access our parameters, we can access them like ...
+
+[esp + 0]   - return address
+[esp + 4]   - parameter 'a'
+[esp + 8]   - parameter 'b'
+[esp + 12]  - parameter 'c'
+
+However, this can get clumsy after we carve out space for local variables and stuff. 
+So, we use a stackbase-pointer register in addition to the stack-pointer register. 
+However, we want the stackbase-pointer register to be set to our current frame, and not the previous function. 
+Thus, we save the old one on the stack (which modifies the offsets of the parameters on the stack) and then
+copy the current stack-pointer register to the stackbase-pointer register.
+
+push ebp        ; save previous stackbase-pointer register
+mov  ebp, esp   ; ebp = esp
+
+Sometimes you may see this done using only the 'ENTER' instruction.
+
+Part 3: Local Variables
+-----------------------
+Carving space for local variables Local variables get stored on the stack.
+Since the stack grows down, we subtract some # of bytes (enough to store our local variables). sub esp, # of bytes
+
+Part 4: Putting it all together
+-------------------------------
+Parameters are accessed using the stackbase-pointer register ...
+
+[ebp + 16]  - parameter 'c'
+[ebp + 12]  - parameter 'b'
+[ebp + 8]   - parameter 'a'
+[ebp + 4]   - return address
+[ebp + 0]   - saved stackbase-pointer register
+
+Local variables are accessed using the stack-pointer register ...
+
+[esp + (# - 4)] - top of local variables section
+[esp + 0]       - bottom of local variables section
+
+Part 5: Stackframe cleanup
+--------------------------
+When we leave the routine the stack frame must be cleaned up.
+
+mov esp, ebp   ; undo the carving of space for the local variables
+pop ebp        ; restore the previous stackbase-pointer register
+
+Sometimes you may see the 'LEAVE' instruction replacing those two instructions.
+
+Depending upon the language you were using you may see one of the two forms of the 'RET' instruction.
+
+ret
+ret <some #>
+
+Whichever is chosen will depend upon the choice of language (or style you wish to follow if writing in assembler). 
+
+The first case indicates that the caller is responsible for removing the parameters from the stack 
+(with the foo(a,b,c) example it will do so via ... add esp, 12) and it is the way 'C' does it. 
+
+The second case indicates that the return instruction will pop # words 
+(or # bytes, I can't remember which) off the stack when it returns, thus removing the parameters from the stack.
+If I remember correctly, this is style used by Pascal.
+
+It's long, but I hope this helps you better understand stackframes.
+

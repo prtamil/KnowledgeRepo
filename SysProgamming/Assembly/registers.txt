@@ -1,0 +1,17 @@
+RAX   -> Accumulator
+RBX   -> Base Register
+RCX   -> Counter
+RDX   -> Data
+RSP   -> Stack Pointer
+RBP   -> Base Pointer
+RSI   -> Source Index
+RDI   -> Destination Index
+R7
+R8
+R9
+R10
+R11 
+R12
+R13
+R14
+R15

@@ -1,0 +1,67 @@
+postgres_user_create
+======================
+
+
+
+  Step # 1: Add a Linux/UNIX user called tom
+  ----------------------------------------------
+Type the following commands to create a UNIX/Linux user called tom:
+# adduser tom
+# passwd tom
+
+Step # 2: Becoming a superuser
+--------------------------------
+You need to login as database super user under postgresql server. Again the simplest way to connect as the postgres user is to change to the postgres unix user on the database server using su command as follows:
+# sudo su - postgres
+
+Step #3: Now connect to database server
+---------------------------------------
+Type the following command
+$ psql template1
+
+OR
+$ psql -d template1 -U postgres
+
+Output:
+
+Welcome to psql 7.4.16, the PostgreSQL interactive terminal.
+Type:  \\copyright for distribution terms
+       \\h for help with SQL commands
+       \\? for help on internal slash commands
+       \\g or terminate with semicolon to execute query
+       \\q to quit
+template1=# 
+
+Step #4: Add a user called tom
+----------------------------------
+
+Type the following command to create a user called tom with a password called myPassword (you need to type command highlighted with red color):
+template1=# CREATE USER tom WITH PASSWORD 'myPassword';
+
+Step #5: Add a database called jerry
+----------------------------------------
+Type the following command (you need to type command highlighted with red color):
+template1=# CREATE DATABASE jerry;
+
+Now grant all privileges on database
+template1=# GRANT ALL PRIVILEGES ON DATABASE jerry to tom;
+
+Type \q to quit:
+template1=# \q
+
+Step #6: Test tom user login
+------------------------------
+
+In order to login as tom you need to type following commands. Login as tom or use su command:
+$ su - tom
+$ psql -d jerry -U tom
+
+Output:
+
+Welcome to psql 7.4.16, the PostgreSQL interactive terminal.
+Type:  \\copyright for distribution terms
+       \\h for help with SQL commands
+       \\? for help on internal slash commands
+       \\g or terminate with semicolon to execute query
+       \\q to quit
+jerry=> 

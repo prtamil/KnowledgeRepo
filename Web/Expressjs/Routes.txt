@@ -1,0 +1,24 @@
+app.get('/', function(req,res,next){
+    res.send('sparta');
+    });
+
+app.get(path, function)
+
+path can be name,regex,
+
+app.get(path, [fn1,fn2,fn2]);
+
+app get can have array of functions also.
+
+fn1(req,res){
+  res.send("1");
+  next();
+}
+fn2(req,res){
+  res.send("2");
+  next();
+}
+
+next() will call next function in array.... or next handler.
+
+

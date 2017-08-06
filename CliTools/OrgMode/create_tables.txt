@@ -1,0 +1,2 @@
+Type |  -> (creates table)
+C-c-|   -> (creates table and asks size)

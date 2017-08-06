@@ -1,0 +1,8 @@
+tshark 
+   -i    -> interface
+   -w    -> write to file
+   -r    -> Read from file.
+   -Y    -> display filter
+   -f    -> packet filter in libpcap filter syntax
+
+

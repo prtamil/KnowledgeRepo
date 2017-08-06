@@ -1,0 +1,7 @@
+search package
+
+> apt-cache madison <<package name>> 
+
+will list the versions avail from sources
+
+> apt-cache search <<regex of name >>

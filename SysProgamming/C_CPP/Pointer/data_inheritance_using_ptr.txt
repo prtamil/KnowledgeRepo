@@ -1,0 +1,49 @@
+Data Inheritance Technique (Not Functions only Data)
+==========================
+  Lately have been working in Bluetooth project.Found out Beautiful Solution for Inheritance
+like solution in C/C++.
+  This thing is absolutely beautiful because it says excatly what pointer is
+
+Solution
+=========
+   
+  struct Base
+  {
+    int a;
+    int b;
+    int c;
+  };
+
+struct Derived
+{
+  int a;
+  int b;
+  int c;
+  int d;
+};
+
+Base *bp = new Derived();
+
+bp->a = 10;
+bp->b = 20;
+bp->c = 30;
+
+Derived *dp;
+dp = bp;
+dp->d = 40;
+
+cout<<dp->a<<dp->b<<dp->c<<dp->d<<endl; 
+//Print 10,20,30,40.
+
+Analysis
+=========
+  when we are allocating memmory we are creating sizeblock.
+but when we refereing to structure whe just refereing to memory its created.
+  So if multiple struct has similar alighment , say some base fields aligned in 
+same position we can use different struct pointers to hold these things.
+
+So Base and Derived no need to be connected via public derived.
+we can make use of pointer to struct in similar fashion to use it as inheritance.
+
+its called Data Inheritance not Class inheritance.
+Quite refreshing the new thought.

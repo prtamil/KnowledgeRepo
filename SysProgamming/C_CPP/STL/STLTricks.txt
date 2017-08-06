@@ -1,0 +1,21 @@
+Tips and Tricks on STL
+=======================
+
+List to Vector Conversion
+_________________________
+
+list<int> f;
+
+//Easiest way to copy from one STL to Another
+vector<int> g(f.begin(),f.end()); 
+
+
+String to Vector<char>
+-----------------------
+
+s = "this is sparta";
+vector<char> vc(s.begin(), s.end());
+
+//Add chars on already existing vector<char>
+vector<char> vc = /* already some thing there */
+copy(s.begin(), s.end(),back_inserter(vc));

@@ -1,0 +1,14 @@
+The cosine of an angle gives the horizontal component of the vector
+The sine of an angle gives the vertical component of the vector.
+
+So:
+
+vector.x = cos(angle)
+vector.y = sin(angle) 
+
+//Get the angle accounting for the quadrant we are in
+//vector to angle
+
+Vector.prototype.getAngle = function(){
+    return Math.atan2(this.y, this.x);
+}

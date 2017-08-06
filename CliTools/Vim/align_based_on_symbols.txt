@@ -1,0 +1,4 @@
+Vim Tabular Plugin
+
+:Tab /->   -> Aligns based on ->
+:Tab /=    -> Aligns based on =

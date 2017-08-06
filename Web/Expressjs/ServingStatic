@@ -1,0 +1,26 @@
+serving static we can use express.static middleware.
+
+Single Folder
+-------------
+app.use(express.static('public'));
+
+Multiple Folder
+--------------
+app.use(express.static('folder1'));
+app.use(express.static('folder2'));
+
+etc..
+
+Virtual folder
+--------------
+app.use('/static', express.static('public'));
+
+we can use like 
+http://localhost:3000/static/images/bear.jpg
+
+its safer to use absolute path if you use from another directory
+because default is current directory.
+
+app.use('/static', express.static(__dirname+'/public'));
+
+

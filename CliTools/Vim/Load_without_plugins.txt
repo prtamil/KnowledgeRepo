@@ -1,0 +1,3 @@
+vim -U NONE   (will load without .vimrc plugins)
+
+alias vi="vim -U NONE

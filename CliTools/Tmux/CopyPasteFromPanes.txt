@@ -1,0 +1,43 @@
+assuming that the tmux prefix is Control+b and that you have emacs style key 
+bindings on
+
+Method1
+-------
+1) enter copy mode using Control+b [ 
+2) navigate to beginning of text, you want to select and hit Control+Space
+3) move around using arrow keys to select region
+4) when you reach end of region simply hit Alt+w to copy the region
+5) now Control+b ] will paste the selection
+
+you can navigate the text using the emacs style navigation key
+Control+p, Control+n, Control+f, Control+b etc.
+
+Method2 (Vi Style)
+-------------------
+if you have vi style key bindings on then the following applies:
+
+1) enter copy mode using Control+b [
+2) navigate to beginning of text, you want to select and hit Space
+3) move around using arrow keys to select region
+4) when you reach end of region simply hit Enter to copy the region
+5) now Control+b ] will paste the selection
+
+To enable vi like cursor movement in copy mode put the following in your ~/.tmux.conf:
+
+set-window-option -g mode-keys vi
+
+more over what ever you copy, you may dump that out in your terminal using
+
+$> tmux show-buffer
+and even save to a file(say, foo.txt) using
+
+$> tmux save-buffer foo.txt
+
+To see all the paste buffers try Control + b #. To dump out the varios buffers on to 
+the terminal or file you may use
+
+
+tmux list-buffers
+tmux show-buffer -b n
+tmux save-buffer -b n foo.txt
+where n is the index of the paste buffer.

@@ -1,0 +1,8 @@
+| Method                                    | No of Files | Deletion Time |
+|-------------------------------------------+-------------+---------------|
+| rsync -a -delete empty                    |     1000000 | 6m50.638s     |
+| find s2/ -type f -delete                  |     1000000 | 87m38.826s    |
+| find s3/ -type f | xargs -L 100 rm        |     1000000 | 83m36.851s    |
+| find s4/ -type f | xargs -L 100 -P 100 rm |     1000000 | 78m4.638s     |
+| rm -rf s5                                 |     1000000 | 80m33.434s    |
+

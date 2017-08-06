@@ -1,0 +1,7 @@
+> gcc -g -c tst.c
+> objdump -d -M intel -S tst.o
+> objdump -d -M att -S tst.o
+
+Objdump 
+   -S  --source
+   -l --line-numbers

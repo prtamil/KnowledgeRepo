@@ -1,0 +1,8 @@
+when some command uses raw socket and 
+it asks permission for su then
+
+$ setcap cap_net_raw+ep exefile
+
+after this you can execute the command as normal user
+
+

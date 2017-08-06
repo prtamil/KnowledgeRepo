@@ -1,0 +1,3 @@
+> tshark -iusb0 -w caputureoutput.pcap    -> store captured packets
+> tshark -r caputureoutput.pcap           -> read from stored one
+

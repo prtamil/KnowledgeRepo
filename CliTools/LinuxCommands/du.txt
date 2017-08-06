@@ -1,0 +1,12 @@
+Disk usage
+
+du 
+ -h  -> human readable
+ -c  -> Sum of all 
+ -s  -> summarize and display only total
+
+ 
+
+ Example
+ -------
+    du -hs *|sort -hr|head -n10    -> gives top 10 diskusage

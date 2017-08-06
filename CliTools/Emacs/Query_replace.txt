@@ -1,0 +1,8 @@
+M-% (Query Replace)  
+Then type 
+  !  -> Replace All
+  Y  -> Replace All into Multibuffer
+  space or y  -> Replace one match
+  ,  -> Replace but not move immediatly
+  N  -> Skip buffer without replacing remainig mathches in current buffer.
+

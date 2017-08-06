@@ -1,0 +1,4 @@
+awk 'NR>1 {print }'   -> Skip first line
+
+NR -> line count ,
+

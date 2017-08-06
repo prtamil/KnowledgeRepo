@@ -1,0 +1,8 @@
+GLuint mybufferID;
+//glGenBuffers(numberOfBuffers: GLsizei, GLuint* buffers)
+glGenBuffers(1, &mybufferID);
+glBindBuffer(GL_ARRAY_BUFFER, mybufferID);
+glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW);
+glEnableVertexAttribArray(0);
+
+glVertexAttribPointer(0, 2, GL_FLOAT,GL_FALSE,0,0);

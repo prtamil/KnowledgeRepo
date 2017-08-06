@@ -1,0 +1,11 @@
+> #Extracts http request with specified fields.
+> tshark -i usb0 -Y http.request -T fields -e http.host -e http.user_agent
+     -i  -> interface usb0
+     -Y  -> Display filter in our case it http.request
+     -T  -> way to make that we gonna extract fields then we use -e fr
+            extracting individual fields.
+     -e  -> Extract fields 
+
+
+
+
