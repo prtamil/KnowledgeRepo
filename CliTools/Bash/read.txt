@@ -1,0 +1,4 @@
+read commmand use to get value from input or string or file descriptor
+
+$ IFS=- read x y <<< "ABC-CDE" 
+    => splits string by - and assign to x and y vaiable

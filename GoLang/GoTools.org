@@ -1,0 +1,43 @@
+* gofmt 
+  auto aligns the code
+** gofmt sample.go
+  - aut aligns
+  * 
+** gofmt -d sample.go
+ print difference between properly aligned code.
+** gofmt -w sample.go
+ Write the file
+* Building (go build)
+** go build
+ build binary
+** GOOS=windows go build
+cross compilation for windows
+** go install
+Install binary in $GOPATH/bin
+so install binary in $GOPATH/bin directory
+
+
+ 
+
+ 
+  
+
+
+* go Get (Install packages)
+
+** go get github.com/xxx 
+- will install package from github.com
+- And Compile it
+- And Install it on $GOPATH/bin/xxx
+* go list
+- gets import path of current location
+** go list -f '{{ .Name }}'
+ Name of binary usually it returns as main.
+** go list -f '{{ .Doc }} '
+ Prints documentation if available 
+ ususally Comment before package main.
+ Prints upto fullstop.
+
+ Need to use to describe programs
+
+
