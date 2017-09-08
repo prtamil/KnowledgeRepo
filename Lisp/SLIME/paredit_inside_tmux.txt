@@ -1,0 +1,9 @@
+Sometimes paredit Ctrl + left arraow not work inside tmux
+so need to set following line inside .tmux.conf
+
+set-window-option -g xterm-keys on
+
+
+For osx ctrl + left arrow move to next screen
+
+so it will be Ctrl + Shift + Left arrow will make forword slurp

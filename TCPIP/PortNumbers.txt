@@ -1,0 +1,22 @@
+PortNumbers
+===========
+   - 16 bit non negative integers
+   - values ranges from (0 - 65535)
+   - Category of Port Numbers defined by IANA (Internet Assigned Numbers Authority) 
+        - 0 - 1023 => Well known port numbers
+        - 1024-49151 => Registered Port numbers
+        - 49152-65535 => Dynamic/Private port numbers
+
+Examples of well known port numbers
+-----------------------------------
+i    SSH   => 22
+     FTP   => 20 && 21
+     Telnet => 23
+     SMTP => 25
+     DNS  => 53
+     HTTP => 80
+     HTTPS => 443
+     IMAP => 143
+     IMAPS => 993
+     SNMP => 161 && 162
+     LDAP => 389

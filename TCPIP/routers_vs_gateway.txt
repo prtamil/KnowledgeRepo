@@ -1,0 +1,3 @@
+Router => Device connecting networks
+Gateway => old name for router, ALG (application-layer-gateway) 
+           Connecting two different protocol suits (TCP to IBM SNA)

@@ -1,0 +1,4 @@
+IETF => Internet Engineering Task Force
+IETF is a forum that elects leadership groups called IAB(Internet Architechture Board) and IESG (Internet Engineering Steering Group)
+IRTF (Internet Research Task Force)
+ISOC (Internet Society)
