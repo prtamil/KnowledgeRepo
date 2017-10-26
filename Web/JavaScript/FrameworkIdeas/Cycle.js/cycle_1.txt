@@ -1,0 +1,22 @@
+
+
+
+
+	      +---------------+
+	      |   Sink        |
+	      |               |
+	      |               |
+	      |               |
+	      +------+--------+
+		     | 
+		     | 
+		     | 	 Driver takes Sink    	       	     
+		     | 	 Sink gives data to Driver.           	    
+		     | 	 Driver Renders the HTML.             	   
+	      +------+----------+
+	      |                 |
+	      |    Driver       |
+	      |                 |
+	      |                 |
+	      |                 |
+	      +-----------------+

@@ -1,0 +1,90 @@
+Driver,Source, Run Revisited
+-----------------------------
+
+              Driver  <---  sinkStream
+	        |
+		|   [ sinkStream -> Renderer ]
+		|
+		|
+		v
+	       SourceStream.
+
+=============================================================================
+
+
+              SinkFn  <--- sourceStream
+	        |
+		|   [ sourceStream -> [ process ]
+		|                          |
+		|<-------------------------|
+		|    (generate sinkStream)
+		v
+	       sinkStream
+
+===========================================================================
+
+
+              Run <---- ( SinkFn, drivers)
+	       |
+	       |
+	       V
+
+      +----------------------------------------+
+      |        Sink <-- get from SinkFn	       |
+      |        Source <-- get from Driver      |
+      |        	       	                       |
+      +----+-----------------------------+-----+
+      o    |   Source = Driver(Sink)  	 |     |
+      |    |   Sink   = SinkFn(Source)	 |     |
+      |    +-----------------------------+     |
+      |    |    () (cycle dependency) 	 |     |
+      |    |           	              	 |     |
+      +----+-----------------------------+-----+
+
+
+How to Solve Cycle Dependency
+-----------------------------
+
+    B = f(A)
+    A = g(B)
+
+1. A and B should be in Streams.
+
+    fakeA = createStream()
+    B = f(fakeA)
+    A = g(B)
+    fakeA.behaveLike(A)
+
+How this works.
+--------------
+     1. Create FakeA string with some initial value
+     2. Get ProperB with FakeA
+     3. Get ProperA with ProperB
+     4. Make FakeA behave like ProperA (thus FakeA becomes ProperA)
+
+This is core principle of Cycle.js
+
+
+Modified Run Function
+=====================
+
+
+              Run <---- ( SinkFn, drivers)
+	       |
+	       |
+	       V
+      +--------------------------------------------+
+      |        	               	                   |
+      |       Sink <-- get from SinkFn             |
+      |       Source <-- get from Driver           |
+      |     +-------------------------------+      |
+      |     | FakeSink = StreamLib.Create() |      |
+      |     | Source = Driver(FakeSink)     |      |
+      |     | Sink   = SinkFn(Source)       |      |
+      |     | FakeSink.ImitateLike(Sink)    |      |
+      |     |                               |      |
+      |     +-------------------------------+      |
+      |                                            |
+      |                        	                   |
+      |                                            |
+      +--------------------------------------------+

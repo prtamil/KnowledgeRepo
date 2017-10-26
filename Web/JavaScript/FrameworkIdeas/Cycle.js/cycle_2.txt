@@ -1,0 +1,29 @@
+
+
+	      +-----------------------------------------+
+	      |        	                                |      	
+	      | Main   	                                |
+	      |     returns                             |      	      	
+	      |            {                            |      
+	      |              web: output to web,        |      
+	      |             console: output to console  |      	 
+	      |            }                            |	 
+	      |                                         |	 
+	      |                                         |	 
+	      |                                         |	 
+	      |                                         |	 
+	      +------------------/-------\--------------+
+			   	/	  \
+			       /	   \
+	  web driver takes    /       	    \  	    console driver should take
+	  web sink           /	       	     \ 	    console sink.     	       	      
+			    /		      \
+			   /		       \
+			  /		        \
+		+--------/-----------+-----------\--------+
+		|      	             |                    |
+		|   web              |                    |	 
+		|   driver           |   console driver   |       
+		|                    |                    |
+		|                    |                    |
+		+--------------------+--------------------+

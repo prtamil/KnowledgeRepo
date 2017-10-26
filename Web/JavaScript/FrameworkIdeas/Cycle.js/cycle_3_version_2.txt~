@@ -1,0 +1,28 @@
+Driver,Source, Run Revisited
+-----------------------------
+
+              Driver  <---  sinkStream
+	        |
+		|   [ sinkStream -> Renderer ]
+		|
+		|
+		v
+	       domSourceStream.
+
+
+
+              SinkFn  <--- sourceStream
+	        |
+		|   [ sourceStream -> [ process ]
+		|                          |
+		|<------------------------->
+		|    (generate sinkStream)
+		v
+	       sinkStream
+
+
+              Run <---- ( SinkFn, drivers)
+	       |
+	       |
+	       V
+	       
