@@ -1,0 +1,17 @@
+Multi-Methods
+=============
+  + Method specialize more than one parameter is called Multi-Methods
+
+example
+-------
+    (defgeneric install (software-product operating-system)
+     (:documentation "Install software on the Operating System")
+
+                          __ two specialized params
+                          |
+    (defmethod install ((sw basic-product)(os basic-os))
+     body)
+
+CLOS Selects the method by
+   + first finding the set of applicable methods
+   + Ranking these methods in order of precedence

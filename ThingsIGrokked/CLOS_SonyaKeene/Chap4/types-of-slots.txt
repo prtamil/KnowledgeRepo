@@ -1,0 +1,23 @@
+Two kind of slots
+=================
+  + local slot  
+  + shared slot
+
+local slot
+----------
+   + stores information in instance.
+   + each instance maintains its individual copy of slot
+   + its default
+
+shared slot
+-----------
+     + stores information in class
+     + slot shared by all instances
+     + if any instance change value its reflected to all instance
+     
+     it is created by :allocation slot option
+
+:allocation
+-----------
+ :allocation :instance  => local slot
+ :allocation :class     => shared slot

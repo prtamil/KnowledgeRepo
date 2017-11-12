@@ -1,0 +1,4 @@
+:argument-precedence-order option to defgeneric to specify different
+order.
+
+by default it is Left to Right.

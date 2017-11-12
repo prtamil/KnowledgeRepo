@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title> Organize Code </title>
+    </head>
+    <body>
+        <div id="app"></div>
+        <script src="https://unpkg.com/xstream@11.0.0/dist/xstream.js"></script>
+        <script> window.xs = xstream.default </script>
+    <script>
+        function main() {
+            return xs.periodic(1000)
+                     .fold(prev => prev + 1, 0)
+                     .map(i => `Seconds ELAPSED: ${i}`)
+        }
+
+       function domDriver(text$) {
+           text$.subscribe({
+               next: str  => {
+                   const elem = document.querySelector('#app');
+                   elem.textContent = str;
+               }
+           })
+       }
+
+      function logDriver(msg$) {
+          msg$.subscribe({
+              next: msg => {
+                  console.log(msg);
+              }
+          })
+      }
+
+     const sink = main();
+     domDriver(sink);
+     logDriver(sink);
+    </script>
+    </body>
+</html>

@@ -1,0 +1,12 @@
+: initarg
+    => pass as arugument in make-instance 
+:initform 
+    => default value
+:accessor
+    => read/write
+:reader
+   => readonly
+:writer
+   => write only
+:type
+  => define type of slot

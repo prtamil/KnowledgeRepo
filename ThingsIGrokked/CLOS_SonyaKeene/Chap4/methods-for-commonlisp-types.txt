@@ -1,0 +1,4 @@
+CLOS provides classes corresponding to some (but not all) of the 
+standard Common Lsp types.
+
+

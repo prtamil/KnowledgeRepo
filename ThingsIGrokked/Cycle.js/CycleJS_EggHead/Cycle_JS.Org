@@ -1,0 +1,112 @@
+* CycleJS EggHead.IO
+** 7_Make our Toy Dom Driver more flexible.
+
+ + Driver takes sink source which contains the object of dom tree.
+ + Driver creates element based on returned.
+
+#+BEGIN_SRC js
+ var obj = {
+     tagName: 'H1',
+     children: [
+       {
+         tagName: 'SPAN',
+         children: [
+           `Seconds Elapsed: ${sec}`
+         ]
+      }
+    ]
+  }
+     
+ 
+      
+  function domDriver(obj$) {
+     
+     function createElement(obj) {
+        const element = document.createElement(obj.tagName);
+         
+        obj.children.forEach( child => {
+            if (typeof child === 'object') {
+               element.appendChild(createElement(child));
+            } else {
+                element.textContent = child;
+            }
+        });
+        return element;
+    }
+
+    obj$.subscribe({next: obj => {
+         const container = document.querySelector('#app');
+         container.textContent = ''; //clear
+         const element = createElement(obj);
+         container.appendChild(element);
+    }});
+     
+    const domSource = fromEvent(document, 'click');
+    return domSource;
+}
+     
+#+END_SRC
+** 8_Fine Grained control over DOM source in Cycle.js
+
+can write 
+
+#+BEGIN_SRC js
+
+function h(tagName, childeren) {
+  return {
+     tagName: tagName,
+     children: children,
+  };
+}
+
+function h1(children) {
+   return {
+     tagName: 'H1',
+     children: children,
+  }
+}
+
+//so 
+
+var obj = h1(['string'])
+
+#+END_SRC
+** 10_Convert Toy Dom Driver to Cycle.js DOM Driver.
+
+ simple get elements using
+ 
+  #+BEGIN_SRC js
+  
+   const {h1, h, span, div ,input ,etc...} = CycleDOM; 
+
+  #+END_SRC
+** 11_Read Text Input in Cycle.js Hello World Application.
+#+BEGIN_SRC js
+
+const { label, input, h1, hr, div, makeDOMDriver} = CycleDOM;
+
+function main(sources) {
+
+   const inputEv$ = souces.DOM.select('.field').events('input');
+   const name$ = inputEv$.map(ev => ev.target.value)
+                         .startWith('');
+   
+   return {
+     DOM: name$.map( name =>
+         div([
+              label('Name:')
+              input('.field', {type: 'text'}),
+              hr(),
+              h1('Hello ' + name + '!')
+            ]))
+       };
+}
+
+const drivers = {
+ DOM: makeDOMDriver('#app')
+}
+
+Cycle.run(main, drivers);
+
+#+END_SRC
+

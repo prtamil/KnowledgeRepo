@@ -1,0 +1,47 @@
+Run function
+------------
+
+   equ:
+
+   Cycle.Run(mainFn, drivers)
+
+   Run <-- (mainFn, drivers)
+   |
+   |
+   v
+
+   1.  const fakeSinks = {}
+
+    // Create fake sinks for all available drivers.
+  
+   2. Object.keys(drivers).forEach (driverKey => {
+       fakeSinks[driverKey] = xs.create();
+       });
+
+   //Create Sources from Drivers
+
+   3. const sources = {}
+
+   4. Object.keys(drivers).forEach (driverKey => {
+        sources[driverKey] = drivers[driverKey](fakeSinks[driverKey]);
+	});
+
+
+    //Create Sinks from the Sources
+
+     5. const sinks = mainFn(sources);
+
+     //Convert fake sinks to real sinks
+
+     6. Object.keys(sinks).forEach(driverKey => {
+           fakeSinks[driverKey].imitate(sinks[driverKey]);
+	   });
+
+      7. EOD
+
+
+  
+
+    
+   
+  

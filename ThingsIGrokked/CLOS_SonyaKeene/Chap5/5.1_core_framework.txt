@@ -1,0 +1,15 @@
+CORE FRAMEWORK
+=============
+
+    1. All applicable before-methods are called in 
+       most-specific-first order
+    2. The most specific applicable primary method is called.
+    3. All applicable after-methods are called in
+       most-specific-last order.
+
+  return values of before, after are ignored. 
+  only specific primary methods are considered.
+
+  if no applicable primary method , error is signalled.
+
+

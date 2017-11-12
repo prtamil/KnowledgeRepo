@@ -1,0 +1,2 @@
+a instance can use a method that is attached to a 
+superclass of its class

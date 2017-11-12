@@ -1,0 +1,2 @@
+A method is applicable if the arguments to genric funtion
+matches thar method's specialied parameters.

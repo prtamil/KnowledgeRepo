@@ -1,0 +1,10 @@
+After Method
+-------------
+  Default method is called primary method. The method after primary
+  method is called after method
+
+  it does not affect the return value of primary method
+  ex:
+  --
+    (defmethod describe :after ((ts Test))
+       (format t "SPARTA  ~a~%" ts))

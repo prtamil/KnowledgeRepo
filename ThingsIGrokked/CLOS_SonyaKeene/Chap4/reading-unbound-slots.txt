@@ -1,0 +1,9 @@
+Reading Unbound Slots
+=====================
+  + if slot is not initialized
+  + no value has been stored in it by using writer
+
+if you try to read unbound-slot an error is signaled.
+slot-unbound exception handler is called.
+  + it is system-supplied default method.
+  + can specialize this generic function

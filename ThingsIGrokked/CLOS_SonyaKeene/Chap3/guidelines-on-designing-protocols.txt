@@ -1,0 +1,13 @@
+Protocols
+---------
+    list of generic methods
+
+GuideLines
+----------
+1. Restrict the user's access to the internal data structures.
+   (using export/import in packages)
+2. Provide constructor functions for creating the data structures.
+3. Design the protocol to anticipate the needs of the users.
+4. Allow the protocol to evolve to meet the reasonable needs of users.
+5. Design some protocols to be extensible by the user
+

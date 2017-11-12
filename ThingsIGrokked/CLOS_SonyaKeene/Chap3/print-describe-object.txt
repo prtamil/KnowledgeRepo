@@ -1,0 +1,34 @@
+Printing Object
+---------------
+  CLOS specified Lisp always call the generic function
+  "print-object" whenever print, print1, princ, write, format
+  is called upon.
+
+ex:
+--
+   (defmethod print-object ((ts Test) stream)
+      (format stream "#<~S ~A ~D>"
+            (type-of ts)
+            (if (slot-boundp ts 'name)
+                (test-name ts)
+                " No Name ")
+            (print-unreadable-object (ts stream :type 'integer
+                                      :identity 'eql))))
+
+print-unreadable-object => displays address.
+
+its called default method.
+
+Describing Object
+------------------
+   Defines Printed Representation of Object
+
+   (defmethod describe ((ts Test))
+     (format t "~&~S is a obj of type ~A named ~A "
+              ts (type-of ts)
+              (if (slot-boundp ts 'Test)
+                  (test-name ts)
+                  "NO NAME"))(values))
+
+
+

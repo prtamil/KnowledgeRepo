@@ -1,0 +1,9 @@
+call-next-method secondary usage:
+--------------------------------
+  + usually clos call most applicable primary method.
+  + call-next-method inside primary method can call next most 
+    specific primary methods. (if not availalbe signals error)
+  + we can use (next-method-p ) to test next most specific primary
+    method is available.
+  + if call-next-method is called more than once then each time
+    same "next method is called"

@@ -1,8 +1,8 @@
 Driver,Source, Run Revisited
 -----------------------------
 
-              Driver  <---  sinkStream
-	        |
+       Driver  <---  sinkStream
+	    |
 		|   [ sinkStream -> Renderer ]
 		|
 		|
@@ -12,8 +12,8 @@ Driver,Source, Run Revisited
 =============================================================================
 
 
-              SinkFn  <--- sourceStream
-	        |
+        SinkFn  <--- sourceStream
+	    |
 		|   [ sourceStream -> [ process ]
 		|                          |
 		|<-------------------------|

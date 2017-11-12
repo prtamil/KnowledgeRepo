@@ -1,0 +1,16 @@
+When Generic function is called
+-------------------------------
+ CLOS takes charge of selecting implementation by
+   1. Checking arguments
+   2. finding applicable methods
+   3. sorting them by order of precedence
+   4. finally calling one or more of them.
+        a. Calling before methods
+        b. Calling primary methods
+        c. Calling after methods
+        d. return value of primary methods
+
+This is called Generic Dispatch
+               ================
+
+

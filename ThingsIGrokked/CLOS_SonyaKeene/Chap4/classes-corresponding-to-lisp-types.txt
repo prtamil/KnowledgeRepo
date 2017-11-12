@@ -1,0 +1,11 @@
+Classes and Types
+=====================
+  Class and Types are two different thing.
+  It is not the same. although it looks like the same.
+
+ By CLOS for some type we have equalavent class.
+ But not for all types.
+
+If commonlisp doesnot have a corresponding class you cannot
+define a method that specializes on that type.
+

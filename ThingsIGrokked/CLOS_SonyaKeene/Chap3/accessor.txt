@@ -1,0 +1,26 @@
+Accessor
+=========
+  The term accessor generic function is an umberlla term that includes
+  both readers and writers.
+
+  For Read only slot we can define :reader
+  For Both Read and Write we can use :accessor
+  For Write only we use :writer
+
+
+   CLOS generates two generic functions
+   1. reader generic function
+   2. writer generic function
+
+   ex:
+    (defclass Test()
+       ((a :accessor a :initarg a :initform 10)))
+
+    (defparameter inst (make-instance 'Test :a 20))
+    
+    ; reader generic function
+    (a inst)
+    ; writer generic function
+    (setf (a inst) 30)
+ 
+   

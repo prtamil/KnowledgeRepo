@@ -1,0 +1,14 @@
+Mixin class
+===========
+   If you want to add a slot on exiting class
+instead of modifying define mixin class.
+
+(defclass Test()
+  ((a :accessor test-a :initform 10)))
+
+(defclass bMixin()
+  ((b :accessor mixin-b :initform 20)))
+
+;; Aggregate class
+(defclass TestAggregate(bMixin, Test)
+      ())

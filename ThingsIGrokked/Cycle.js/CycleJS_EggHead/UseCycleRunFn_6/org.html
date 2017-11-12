@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title> Organize Code </title>
+    </head>
+    <body>
+        <div id="app"></div>
+        <script src="https://unpkg.com/xstream@11.0.0/dist/xstream.js"></script>
+        <script src="https://unpkg.com/xstream@11.0.0/extra/fromEvent.js"></script>
+        <script> window.xs = xstream.default </script>
+    <script>
+        function main(sources) {
+            const click$ = sources.DOM
+            return {
+             DOM:  click$.startWith(null)
+                         .map(() =>
+                              xs.periodic(10000)
+                                .fold(prev => prev + 1, 0)
+                             ).flatten()
+                                 .map(i => `Seconds ELAPSED: ${i}`),
+             LOG: xs.periodic(50000)
+                    .fold(prev => prev + 1, 0)
+            }
+        }
+
+      //source = input (read) effect
+      //sink   = output(write) effect
+
+       function domDriver(text$) {
+           text$.subscribe({
+               next: str  => {
+                   const elem = document.querySelector('#app');
+                   elem.textContent = str;
+               }
+           });
+           const domSource = fromEvent(document, 'click');
+           return domSource;
+       }
+
+      function logDriver(msg$) {
+          msg$.subscribe({
+              next: msg => {
+                  console.log(msg);
+              }
+          })
+      }
+
+    //How to handle circular dependency
+    // b = f(a)
+    // a = g(b)
+   // =>
+   // fakeA = ...
+   // b = f(fakeA)
+   // a = g(b)
+   // fakeA.behaveLike(a)
+
+
+    function run(mainFn, drivers) {
+
+     const fakeSinks = {}
+     Object.keys(drivers).forEach(key => {
+         fakeSinks[key] = xs.create();
+     });
+
+    const sources = {};
+    Object.keys(drivers).forEach(key => {
+        sources[key] = drivers[key](fakeSinks[key]);
+    });
+
+    const sinks = mainFn(sources);
+
+    Object.keys(sinks).forEach(key=> {
+        fakeSinks[key].imitate(sinks[key]);
+    });
+ }
+
+    run(main, {
+        DOM: domDriver,
+        LOG: logDriver
+    });
+    </script>
+    </body>
+</html>

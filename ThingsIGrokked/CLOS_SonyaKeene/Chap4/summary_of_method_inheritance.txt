@@ -1,0 +1,32 @@
+Summary
+=======
+   + Inheritance of Methods involve 2 seperate mechanisms
+
+1. Selecting the set of applicable methods.
+   + General rule of method applicability
+     (A method is applicable if each of its 
+         + required parameter 
+         + should satisfiy by the corresponding argument
+         + to the generic function.)
+
+     | Required Parameter | Test                    |
+     | ---                | ---                     |
+     | (var (eql form))   | (eql arg 'object)       |
+     | (var class-name)   | (typep arg 'class-name) |
+     | var                | (typep arg 't)          |
+
+2. Ranking the applicable methods in order of precedence.
+    + To rank CLOS Requires
+       + Set of applicable methods
+       + class precedence list of the class of each req arg to generic fun.
+       + argument precedence order of generic function
+          + Left to right
+    + Rule of Ranking parameter specializers:
+       + A Parameter specializer of (eql object) is more specific than a class.
+       + When both parameter specializers are classes. They ranked
+          + according to class precedence list of class (w.r of generic fn)
+          + The class precedence list indicates which class is more 
+            specific than other.
+
+
+

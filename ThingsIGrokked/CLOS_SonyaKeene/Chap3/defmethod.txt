@@ -1,0 +1,23 @@
+Methods
+========
+
+(defmethod method-name ((tst Test) x y &optional))
+                           |
+                           V
+                        Specialized parameters
+
+Specialized Parameters
+-----------------------
++ is a list containing a variable and a classs name.
++ You can only specialize require params
++ You cannot specialize &optional, &rest, &key parameters
++ More than one number of specialized parameters is called 
+  "MultiMethods"
+
+Rule of Method applicability
+----------------------------
+  A Method is applicable if each of its specialized parameters 
+is satisfied by the corresponding argument to the generic function.
+
+
+

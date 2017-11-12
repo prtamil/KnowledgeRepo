@@ -1,0 +1,20 @@
+around method is like class decorator.
+
++ around method is called first in case of any method.
++ if around does not have call-next-method then it will return 
+  discarding all other methods. it can shadow existing methods.
+
++ if call-next-method is called inside around function.
+  it calls the core framework
+
++ around is like around functions.
+  EX usage: timeit function for method.
+
+(defmethod sq :around ((ts Test))
+   (let ((start-time (now))
+         (end-time nil))
+    (call-next-method)
+    (setf end-time (now))
+    (- end-time start-time)))
+
+calculates time method.

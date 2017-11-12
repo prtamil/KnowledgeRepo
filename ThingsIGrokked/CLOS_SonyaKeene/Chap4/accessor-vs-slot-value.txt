@@ -1,0 +1,15 @@
+slot-value
+==========
+ slot-value accesses the slot directly without calling any accessor methods.
+
+   Can read any slot using slot-value,
+   can write any slot using (setf (slot-value x) new-x)
+
+ accessors are advertised interface
+ slot-value is the underlying implementation of accesors.
+
+ if developer changes slot names accessor is the way
+ methods can work without change. else we need to change code in methods
+ which defeats the purpose of OO.
+
+

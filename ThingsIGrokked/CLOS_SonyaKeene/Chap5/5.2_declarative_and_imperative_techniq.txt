@@ -1,0 +1,15 @@
+Declarative Techniques
+======================
+   Default Core framework is called declarative technique.
+   Rely on generic dispatch procedure
+
+Imperative Techniques
+======================
+   Control the generic dispatch procedure more directly.
+
+     + providing an around-method to wrap-around the core framework
+     + calling a shadowd primary method.
+
+This built-in framework is also called method combination types.
+  + built-in method combination types.
+  + inventing and using new method combinatoion types.

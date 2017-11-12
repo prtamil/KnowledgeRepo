@@ -1,0 +1,21 @@
+| Class      | Class Precedence List                |
+|------------+--------------------------------------|
+| array      | (array t)                            |
+| bit-vector | (bit-vector vector array sequence t) |
+| character  | (character t)                        |
+| complex    | (complex number t)                   |
+| cons       | (cons list sequence t)               |
+| float      | (float number t)                     |
+| integer    | (integer rational number t)          |
+| list       | (list sequence t)                    |
+| null       | (null symbol list sequence t)        |
+| number     | (number t)                           |
+| ratio      | (ratio rational number t)            |
+| rational   | (rational number t)                  |
+| sequence   | (sequence t)                         |
+| string     | (string vector array sequence t)     |
+| symbol     | (symbol t)                           |
+| t          | (t)                                  |
+| vector     | (vector array seqence t)             |
+
+

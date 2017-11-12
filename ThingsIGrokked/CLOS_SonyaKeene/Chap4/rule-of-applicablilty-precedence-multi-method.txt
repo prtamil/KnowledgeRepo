@@ -1,0 +1,31 @@
+Satisfied arguments  => 
+      + argument is of type of the parameter specializer
+      + it is an instance if the class itself
+      + instance of subclass
+
+unspecialized parameter => t (all objects are type t)
+
+
+Rule of applicability of multi-methods
+=======================================
+  A method is applicable if each of its required parameters is 
+satisfied by the corresponding argument to the generic function.
+
+  A unspecialized required parameter is equivalent to parameter
+that specializes on the class named t.
+
+if CLOS finds more than once applicable primary method only most
+specified one is called.
+
+Precedence Order of Multi-Methods
+=================================
+  CLOS ranks two applicable methods in order of precedence by
+considering the required argument of the method from left to right.
+with respect to their parameter specializers.
+
+Mathematics call this "lexicographic order"
+                      ---------------------
+
+Left to Right precedence of parameters is arbitary default.
+Can change it by using ":argument-precedence-order" option in defgeneric.
+

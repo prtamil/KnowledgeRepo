@@ -1,0 +1,33 @@
+Method for individual Lisp objects
+---------------------------------
+    we can specialize on an individual lisp object.
+This kind of method is called an individual method.
+
+;1
+(defmethod divide ((divident number) (zero (eql 0)))
+  (error "Cannot divide by zero"))
+;2
+(defmethod divide ((divident number) (divisor number))
+  (/ divident divisor))
+
+1 => is called individual method.
+
+lambda list for individual method => (var (eql form))
+
+Rule of applicability of an individual method:
+=============================================
+ For a parameter specializer of the form (eql object), the
+ argument to the generc function satisfies the parameter 
+specializer if the argument is eql to the object.
+In other words,
+ The expression such as (eql argument 'object) should be true.
+
+Rule of precedence of an individual method:
+==========================================
+ When 2 parameter specializers are compared, 
+ a parameter specializer of the form (eql object) is always
+ more specific than a class
+
+ if eql object (object is a form , the form gets evaulated 
+         only once, while defined).
+

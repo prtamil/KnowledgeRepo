@@ -26,6 +26,13 @@
 
 Run functions connect sink and Driver.
 
+//single driver
+function run(sinkfn, drivers) {
+    const sink = sinkfn();
+    driver(sink);
+}
+
+//Actual impl
 function run(sinkfn, drivers) {
    const sinks = sinkfn();
    Object.keys(drivers).forEach(driver => {

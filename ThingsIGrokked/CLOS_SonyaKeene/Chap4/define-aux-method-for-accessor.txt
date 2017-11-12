@@ -1,0 +1,32 @@
+we can use defmethod to write an auxiliary method for 
++ reader generic function
++ writer generic function
+
+writer generic function
+-----------------------
+(defmethod (setf accessor-a) :after (x (ts Test))
+  (format t "Modify existing accessor b as side effect")
+  (setf (accessor-b ts) (+ x (accessor-b ts))))
+
+This is after-method which runs afte primary method (setf accessor-a)
+it stores accessor-b with new value of 
+   when set accessor-a with x
+      accessor-b = accessor-a + acessor-b
+
+We can also define primary methods for readers and writers by hand
+
+for ex
+------
+
+(defclass Test()
+  ((aslot :initarg a)))
+
+;reader
+(defmethod aslot ((ts Test))
+  (slot-value ts 'aslot))
+;writer
+(defmethod (setf aslot) (new-val ((ts Test)))
+   (setf (slot-value ts 'aslot) new-val))
+
+. But Accessor provide lot of advantage. can provide before and after etc.
+But good to know. 

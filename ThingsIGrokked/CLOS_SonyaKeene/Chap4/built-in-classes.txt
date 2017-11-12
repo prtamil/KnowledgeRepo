@@ -1,0 +1,45 @@
+Builtin classes
+---------------
+   it is implemented different 
+   classes defined with defclass are different with built-in-class.
+
+   built-in-classes follow
+    + multiple-inheritance
+    + have instances
+    + inherit from class t
+    + we can define methods that specialize on them
+    
+Differences between built-in-class vs user-defined-class:
+---------------------------------------------------------
+Structure => 
+    + structure of user defined class is in form of slots.
+    + for built-in-class it is not.
+
+Creation of Instances =>
+    + user defined class use make-instance to create instance
+    + built-in class use independent mechanism (such as cons)
+    + you cannot use make-instance for built-in-class.
+
+Use as a SuperClas =>
+    + CLOS does not allow you to include a build-in class as
+      a direct superclass of any user-defined classe.
+      (the only exception to this rule is the class named t,
+        which is superclass to everyclass)
+
+Inheritance from standard-object =>
+     + user-classes has a default superclass (standard-object).
+     + built-in-classes have no superclass named standard-object.
+
+Ex: usage of built-in classes 
+   + use as specialization in methods
+
+(defmethod encode ((num integer) stream))
+(defmethod encode ((char character)stream))
+(defmethod encode ((list list) stream))
+(defmethod encode ((vector vector)stream))
+
+
+
+      
+   
+ 

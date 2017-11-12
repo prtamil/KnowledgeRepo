@@ -1,0 +1,17 @@
+CLOS is neatly integrated with existing CommonLisp Type Hierarchy
+
+type-of  => Gives the type from object
+typep    => verifies the type from object
+subtypep => finds out relation between classes (not objects)
+
+examples
+    => (type-of *inst*)  => Test
+    => (typep *inst* 'Test) => t
+    => (subtypep 'DTest 'Test) => t t
+        
+subtypep =>
+    if relationship between the two types is not known the value will be nil nil. 
+    This can happen between CommonLisp Types bit never happen for two classes. 
+    When both arguments to subtypep are classnames, the second value
+    will be always be t.
+

@@ -1,0 +1,27 @@
+Generic Functions.
+==================
+  Primary use to document the Generic function.
+
+  (defgeneric function (lambdalists)
+   (:documentation
+    " XXXX
+      YYYY
+      ZZZZ"))
+
+
+Other way to create defgeneric function s to define method.
+CLOS utomatically creates it.
+
+argument vs parameter
+---------------------
+argument => passed while calling functions
+parameter => passed while defining function
+
+Lambda-List
+-----------
++ lambdalist of all methods and lambdalist of defgeneric
+  should be in same "shape" or "congruent".
++ should have same numbers of required params, optional params.
++ special rules for &key params
+
+generic functions taken together can be called a protocol.

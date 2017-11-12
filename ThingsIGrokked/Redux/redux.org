@@ -1,0 +1,174 @@
+* REDUX
+Video course by dan-ambrow (Redux creator)
+On Egghead.io
+** 01
+  Every Data, UI State are part of State or StateTree.
+
+  First principle of Redux.
+  ------------------------
+     Every data, UI state are part of State or State Tree.
+
+** 02
++ State Tree is Read Only (No one Can modify).
++ Any time to want to modify state Need to Dispatch Action
+
+Dispatch Action
+
+What is Action..
+  + Action Plain Javascript Object Describing the Change.
+
+State =>   Minimal Representation of Data
+Action =>  Minimal Representation of Change.
+
+Only Prerequirment on Action Object is Type Property.
+
+{
+  type: "INCREMENT",  <- This should be present in action, Should be String type because it is serializable.
+
+  //any data          <- Rest all are upto you.
+  index: 0,
+  filter: 'COFFEE',
+  empid: 23,
+}
+
+2nd Principle of Redux
+-----------------------
+ + State is ReadOnly
+ + Only way to change the state is Dispacth Action
+ + Action is Javascript Object has Type in String + changed info.
+** 03
+Pure function => does not change params, global vars etc..
+              => Calculates from params and return the new value.
+              => No side effects.
+** 04
+
+3rd Principle of Redux  (Reducer function)
+-----------------------
+  To describe state mutations you have to write reducer function takes prevstate and actions as input and return Next state.
+
+
+  State mutator is a function
+    + Should be a pure function (should not modify input)
+    + Should take previous state as Input
+    + Should take Dispachted action as Inputs.
+    + Generate new state as Output.
+
+  State Mutator => Reducer Function
+
+   Reduce function (Action, PrevState) : Next State {
+
+  }
+** 05
+
+const counter => (state = 0, action) {
+  
+   switch(action.type) {
+      case "INCREMENT":
+           return state + 1
+      case "DECREMENT":
+           return state - 1
+      default:
+           return state
+    }
+}
+** 06
+ Store => Binds 3 principles of Redux.
+
+ below All three statements are same 
+
+const { createStore } = Redux ; 
+var createStore = Redux.createStore;
+import { createStore } from 'Redux' 
+
+ 
+Program
+ ------
+ #+BEGIN_SRC js
+
+ const counter = (state = 0, action) => {
+   switch (action.type) {
+     case 'INCREMENT':
+        return state+1;
+     case 'DECREMENT':
+        return state-1;
+     default:
+        return state;
+   }
+}
+
+ const { createStore } = Redux;
+ const store = createStore(counter);
+
+// Console App
+--------------
+ //Get State using
+ console.log(store.getState()); //return 0 since 0 initial state.
+
+ //Dispatch something.
+ store.dispatch({type: 'INCREMENT'});
+
+ console.log(store.getState()); // return 1
+ 
+//HTML App
+----------
+
+
+const render = () => {
+  document.body.innerText = store.getState();
+}
+
+store.subscribe(render) //After Event has updated.
+render(); //First Time Render
+
+
+
+document.addEventListener('click', () => {
+  store.dispatch({type: 'INCREMENT'});
+});
+** 07
+ Implementing createStore
+ -------------------------
+
+ const createStore = (reducer) => {
+
+    let state;
+    let listeners = [];
+
+    const getState = () => state;
+
+    const dispatch = (action) => {
+        state = reducer(state, action);
+        listeners.forEach(listener => listener());
+    }
+
+    const subscribe = (listner) => {
+       listeners.push(listner);
+
+       //return function for unsubscribe
+       return () => {
+          listeners = listeners.filter(l => l !== listener);
+       }
+   }
+
+   //dummy dispatch so reducer to return initial value
+   // else you would get undefined.
+   dispatch({});
+
+   return { getState, dispatch, subscribe };
+}
+** 16
+combineReducer.
+ we can generate single reducer with several other reducer.
+
+const combineReducers = (reducers) => {
+
+   return (state = {}, action) => {
+
+     return  Object.keys(reducers).reduce( (nextState, key) => {
+                nextState[key] = reducers[key](state[key],action);
+            
+     return nextState;},{});
+   }
+};
+
+     

@@ -1,0 +1,42 @@
+Source is Input
+Sink is Output
+
+
+Way we should think about
+=========================
+High (has paradigms,patterns)
+Mid  (connections between things, components)
+Low  (bit and pieces of works)
+
+       o      o      <-   sources
+     -------------
+    \              /
+     \            /
+      \          /
+       \        /
+        ---------
+          0- 0
+           0   <- Sinks
+
+Model/View/Intent
+-----------------
+   Intent 
+     |
+     v
+   Models
+     |
+     v
+    View 
+
+Assume MVI as brain.....
+
+Intent listens to impulse and it parses impulse streams to Model part.
+Model part of brain constructs a Model from the impulse.
+Once Model is constructed we respond with set of actions (view)
+
+Watch porn is impulse
+Model constructs as SexMood and imaginary scenario.
+If imaginary scenario model is succeeded
+we mastrubate. (which is view)
+
+

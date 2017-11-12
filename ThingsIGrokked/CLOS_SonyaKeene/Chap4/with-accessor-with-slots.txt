@@ -1,0 +1,54 @@
+with-accessors and with-slots macros
+=====================================
+ Shortcut syntax for accessing slots and accessors.
+ Both get evaluated only once
+
+ex:
+---
+normal readers
+---------------
+(defmethod Angle-A ((tri triangles))
+  (three-sides-to-angle (side-a tri)
+                        (side-b tri)
+                        (side-c tri)))
+
+readers with accessors
+----------------------
+(defmethod Angle-A ((tri triangles))
+    (with-accessors ((a side-a)
+                     (b side-b)
+                     (c side-c))
+                     tri
+      (three-sides-to-angle a b c)))
+
+| This form       | Translates to This Form     |
+| --------------- | --------------------------- |
+| a               | (side-a tri)                |
+| (setq a value)  | (setf (side-a tri) value)   |
+| (setq a value)  | (setf (side-a tri) value)   |
+
+with-slots
+============
+
+ex:
+without with-slots
+------------------
+(defmethod Angle-A ((tri triangle))
+ (three-sides-to-angle (slot-value tri 'side-a)
+                       (slot-value tri 'side-b)
+                       (slot-value tri 'side-c)))
+
+using with-slots
+-----------------
+  (defmethod Angle-A ((tri triangle))
+    (with-slots (side-a side-b side-c)
+                 tri
+        (three-sides-to-angle side-a side-b side-c)))
+
+| This form      | Translates to This form               |
+| ----           | ----                                  |
+| a              | (slot-value tri 'side-a)              |
+| (setq a value) | (setf (slot-value tri 'side-a) value) |
+| (setf a value) | (setf (slot-value tri 'side-b) value) |
+
+

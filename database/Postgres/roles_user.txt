@@ -1,0 +1,8 @@
+when you use psql to connect to user it would look for two things
+
+1. User named current login user
+2. Database named current user.
+
+To crete user Postgresql had concept called ROLES.
+
+

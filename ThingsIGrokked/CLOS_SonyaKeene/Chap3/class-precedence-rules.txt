@@ -1,0 +1,29 @@
+Rules
+=====
+
+(t <- standard-object <- Test)
+
+Rule 1 of class precedence
+---------------------------
+   A class always has precedence over its superclass.
+
+ex:
+---
+   ts will get precedence over standard-object.
+
+
+Rule 2
+-----
+    Each class definition sets the precedence order
+    of its direct superclasses.
+
+ + Rule 1 does not indicate how to rank the direct
+   superclasses, Rule 2 does
+
+so 
+      t <- standard-object <- Test <- TestMixin
+                             (Order of superclass)
+
+
+
+
