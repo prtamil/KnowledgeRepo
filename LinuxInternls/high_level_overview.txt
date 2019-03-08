@@ -1,0 +1,11 @@
+HighLevel Arch of Linux
+----------------------
+
+          -  Applications
+UserSpace -  C Library
+          
+System Calls
+
+Kernel Space - Core Kernel <-> Device Drivers
+             - Hardware 
+

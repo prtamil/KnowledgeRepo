@@ -1,0 +1,8 @@
+How Linux Process maintain Hieararchy ?
+---------------------------------------
+
+Unix uses Two mechanisms
+   - Fork
+   - Exec
+
+using two mechanisms Linux Process maintain tree struct for process

@@ -1,0 +1,9 @@
+What is Directed Broadcast Address ?
+-----------------------------------
+    - Host sends data to all devices on a specific network.
+    - Host part has all '1's .
+    - for ex: 172.16.255.255 is broadcast address for 172.16.x.x network
+    - Routers can route directed broadcast address.
+    - bydefault routers disable direct broadcast address by default.
+    - inorder to stop DOS (Denial of Service Attack) it is disabled.
+    - hacking tools like smurf will use broadcast address for DOS

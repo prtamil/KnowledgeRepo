@@ -1,0 +1,5 @@
+Not able to debug freebsd gdb you cannot do without process ?
+--------------------------------------------------------------
+
+#sysctl security.bsd.unprivileged_proc_debug=1
+fixed this

@@ -1,0 +1,4 @@
+What kind of Kernel is Linux ?
+-------------------------------
+Linux is MonoLithic Kernel. 
+But it has Modules which support dynamic support

@@ -1,0 +1,2 @@
+> go get -u all.
+updates all installed packages

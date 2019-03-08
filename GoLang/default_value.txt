@@ -1,0 +1,5 @@
+Does Go variables get initialized by Default ? What is it ?
+------------------------------------------------------------
+
+Yes go lang initializes value by default. it is usually null value
+for int it is 0, array all elements is 0, string empty string etc

@@ -1,0 +1,6 @@
+What does exec do ?
+----------------------------------------
+- Exec loads new program into existing content
+- After loading it executes it
+- Previous pages reserved by old programs are flushed
+- Their content is replaced by new programs

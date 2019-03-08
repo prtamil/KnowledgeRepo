@@ -1,0 +1,6 @@
+Tell me about Linux Process and its Hiearchy ?
+----------------------------------------
+- Linux Employs Hiearchial Scheme in which process depends on a parent ps
+- INIT is the first process that is responsible for futher process
+
+

@@ -1,0 +1,24 @@
+
+                 pushes
+(Observable)    ------->  (Observer)
+           |    pushes
+           |------------> (Observer)  
+
+
+Observables pushes event to observer
+
++ Observables changes,
++ Observers are Notified.
+
+Observer pattern is about push.
+
+There are two types of event handling
+ + Push (once you get the updates push to list of observers)
+ + Poll (poll for every x time and get the updates)
+
+Observables also called as Subjects.
+
+
+facts
+-----
+  + Observables has a (one or many) Observers.

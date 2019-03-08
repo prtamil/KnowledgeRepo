@@ -1,0 +1,9 @@
+What does fork do ?
+----------------------------------------
+
+- Fork generates exact copy of the current process
+- fork generated process differ from child procees with only by PID
+- As Theory memory content is duplicated.
+- But Linux uses Copy-On-Write that allow defering copy operations
+  untill either parent or child writes to a page
+

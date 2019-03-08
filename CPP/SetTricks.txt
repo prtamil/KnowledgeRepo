@@ -1,0 +1,6 @@
+1. To detect Duplicate in Set
+==============================
+
+//set returns pair<iterator, boo> where bool is false when insert failed
+if(mset.insert(val).second == false) { do something for duplicate; }
+

@@ -1,0 +1,160 @@
+* How to create Short NgRx Project
+** Step 1: Project Setup
+
+> ng new FirstNgRx
+> yarn add @ngrx/store --save
+** Step 2: Module Setup
+
+go to app.module.ts
+//1. Add Below Imports
+
+import { StoreModule } from '@ngrx/store';
+import { simpleReducer } from './simple.reducer';
+
+@NgModule({
+  declarations: [
+      AppComponent
+  ],
+  imports: [
+      BrowserModule,
+      AppRoutingModule,
+
+      //2. Add below Line
+      StoreModule.forRoot({message: simpleReducer })
+
+   ],
+  bootstrap: [AppComponent]
+})
+
+export class AppModule {}
+** Step 3: Write a Reducer Function
+
+import { Action } from '@ngrx/store';
+
+export function simpleReducer(state: string = "Hello world", action: Action) {
+
+    console.log(action.type, state);
+    
+    switch(action.type) {
+        case 'SPANISH':
+          return state = 'Hola Mundo';
+        case 'FRENCH':
+          return state = 'Bonjour le monde';
+         default:
+           return state;
+    }
+}
+
+** Step 4: Modify Component.ts  for usage
+
+//1. Import these things
+
+ import { Store } from '@ngrx/store';
+ import { Observable } from 'rxjs/Observable';
+
+//2. Define State Structure
+
+interface AppState {
+   message: string;
+}
+
+
+//3. Inside the AppComponent class
+
+export class AppComponent {
+
+    //4. Declare Observable of message
+    message$: Observable<string>
+
+    //5. Inject Store and Get Result as Observable
+
+    consturctor(private store: Store<AppState>) {
+       this.message$ = this.store.select('message');
+    }
+
+   //6. Dispatch Actions
+   spanishMessage() {
+       this.store.dispatch({type: 'SPANISH'});
+   }
+
+   frenchMessage() {
+       this.store.dispatch({type: 'FRENCH'});
+   }
+
+}
+** Step 5: Use it in Component.html
+ 
+  // async pipe is preferred. so it is properly cleaned.
+  // on destruction.
+
+ //Draw messages
+ <h1> {{ message$ | async }} </h1>
+
+  <button (click)="spanishMessage()">Spanish</button>
+  <button (click)="frenchMessage()">French</button>
+
+* How to Create Effects ngRx Effects
+
+Effects are easy way to handle side effects. So 
+as per my current understanding  if One action want to do modify something
+Either database entry, logger entry or Making another api call we need to
+write sideeffects for that action.
+
+So Generic Form of Effects is 
+
+1. Action -> Effects (Process Something) -> Call Another Effects.
+2. Action -> Effects ({dispatch: false}) Process -> Do nothing. (this is uncommon please use it with care)
+
+
+** Step 0: Install
+yarn add @ngrx/effects --save
+or
+npm install @ngrx/effects --save
+** Step 1: Create Effects file effect.js
+
+//1.  Import necessary rxjs operators as per logic
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/delay';
+
+//2. Import Actions our Actions that we want effects for
+import * as postActions from './actions/post.effect';
+export type Action = PostActions.All;
+
+
+//3. Declare Effect Class
+@Injectable()
+export class PostEffects {
+   
+    consturctor(private actions: Actions){}
+
+//4. Important step 4
+    
+    You can pass {dispatch : false/true } inside @Effect decorator.
+     + false is it will not emit any action handle with care.
+     + true means (its true by default) it expects emit some actions
+
+    @Effect()
+    upVote: Observable<Action> = this.action.ofType(postActions.UPVOTE)
+        .map((action: postActions.Upvote) => action.payload)
+        .delay(1000)
+        .map((str) => {
+              console.log('Upvote');
+              return new postActions.Downvote()
+        }
+
+** Step 2: Register Effects in Module.
+
+//1. Import Necessary items
+import { EffectsModule } from '@ngrx/effects';
+import { PostEffects } fro './post/effects';
+
+//2. In ngModules imports
+
+[
+   StoreModule.forRoot([PostEffects]),
+]
+
+That's all folks
+
+     
+

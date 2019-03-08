@@ -1,0 +1,7 @@
+How to find files created within 5 mins
+---------------------------------------
+
+find . -cmin  +<time>
+find . -cmin  -<time>
+
+-5 for witin 5 mins

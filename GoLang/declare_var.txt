@@ -1,0 +1,5 @@
+How to declare variables in GoLang ?
+------------------------------------
+
+var name type = expression
+var hi string = "Test"

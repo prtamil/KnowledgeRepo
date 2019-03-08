@@ -1,0 +1,3 @@
+Is Directed Broadcast Address is enabled by default ?
+---------------------------------------------------
+No it is Disabled by default in Cisco Router and Switches

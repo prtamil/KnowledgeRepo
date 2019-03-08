@@ -1,0 +1,6 @@
+1. To check for existence in STL Containers
+-------------------------------------------
+
+const bool is_in = container.find(element) != container.end();
+const bool is_in = find(container.begin(), container.end(), item) != container.end();
+

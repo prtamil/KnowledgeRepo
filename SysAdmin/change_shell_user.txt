@@ -1,0 +1,4 @@
+How to Change Shell for user ?
+-------------------------------
+
+chsh -s /usr/local/bin/bash {username}
