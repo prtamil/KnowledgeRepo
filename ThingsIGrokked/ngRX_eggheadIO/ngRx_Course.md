@@ -1,5 +1,5 @@
 * Async Pipe
-  
+```javascript  
    @Component({
      selector: 'app',
      template: `
@@ -14,6 +14,7 @@
            this.clock.subscribe(console.log.bind(console)); //Async pipe do this
         }
   } 
+```
    
    async pipe => subscribing and taking values.
 
@@ -22,11 +23,13 @@
    template: `
       <h1> {{ clock | async | date: 'DD-MM-YYYY'}} </h1>
    `
+```javascript
     export class App {
         clock = Observable
                 .interval(1000)
                 .map(()=> new Date());
     }
+```
 
    which prints date time for every seconds.
 
@@ -41,7 +44,7 @@
      <button (click)="click$.next()"> Update </button>
      <h1> {{ clock | async | date: 'DD-MM-YYYY'}} </h1>
     '
-   
+```javascript
    export class App {
          click$ = new Subject();
    
@@ -49,7 +52,7 @@
             this.clock = this.click$.map(() => new Date());
          }
   }
-    
+```
    in here we can create subject. Subject is both observer and observable
  
    we can emit using "click$.next()" this emit events for subject.
@@ -62,7 +65,7 @@ template: `
      <button (click)="click$.next()"> Update </button>
      <h1> {{ clock | async | date: 'DD-MM-YYYY'}} </h1>
     '
-   
+```javascript
    export class App {
          click$ = new Subject();
          clock;
@@ -74,9 +77,10 @@ template: `
                          ).map( () => new Date());
          }
   }
-
+```
    Observable.merge merges two observables together and make it into single.
 * Manage State with RxJS with StartWith and Scan
+```javascript
   constructor() {
     this.clock = Observable.merge(
                     this.click$,
@@ -89,7 +93,7 @@ template: `
                        return date;
                   });
                 }
-
+```
    startWith => gives instance to start with so no need to generate new 
                 everytime.
     scan  => Update everyevents happen
