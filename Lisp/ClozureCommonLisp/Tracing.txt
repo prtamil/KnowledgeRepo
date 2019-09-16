@@ -1,0 +1,35 @@
+When a (globally named) function FOO is defined with DEFUN, the compiler is allowed to assume that functional references to that function name refer to the function being defined (unless they're lexically shadowed); it can therefore skip the implicit SYMBOL-FUNCTION ("call whatever is in the function cell of FOO") on a self-call (a call to FOO from within FOO.) This saves an instruction or two on those calls, but (since TRACE works by changing what SYMBOL-FUNCTION returns) those inlined self-calls can't be traced.
+
+However, the compiler can't do this (can't even assume that something defined by DEFUN won't be redefined later) if the function name is declared NOTINLINE at the point of the self call:
+
+example:
+
+? (defun fact (x acc)
+    (declare (notinline fact)) ;this is needed to trace clozure common lisp no need for sbcl
+    (if (= x 0)
+        acc
+        (fact (- x 1) (* x acc))))
+
+? (trace fact)
+NIL
+
+? (fact 3 1)
+0> Calling (FACT 3 1) 
+ 1> Calling (FACT 2 3) 
+  2> Calling (FACT 1 6) 
+   3> Calling (FACT 0 6) 
+   <3 FACT returned 6
+  <2 FACT returned 6
+ <1 FACT returned 6
+<0 FACT returned 6
+
+? (step (fact 3 1))
+0> Calling (FACT 3 1) 
+ 1> Calling (FACT 2 3) 
+  2> Calling (FACT 1 6) 
+   3> Calling (FACT 0 6) 
+   <3 FACT returned 6
+  <2 FACT returned 6
+ <1 FACT returned 6
+<0 FACT returned 6
+That's the way to say to the compiler, "as a matter of policy, I'd rather have the ability to trace functions which call themselves and are defined with DEFUN and don't care about saving a few cycles per self-call".
